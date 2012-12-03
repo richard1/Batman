@@ -1,4 +1,4 @@
-Batman
+Justice Summit Signup System Code Name "Batman"
 ======
 
 Registration system for Bellarmine's 2012-2013 Justice Summit
