@@ -3,11 +3,11 @@
 body
 {
 	font-family:"Trebuchet MS";
-	background-color:#0099CC;
+	background-color:#001940;
+	color:white;
 }
 div.header
 {
-	text-align:center;
 	font-size:36px;
 }
 div.main
@@ -20,16 +20,40 @@ div.main
 input.submitbutton
 {
 	display:block;
-	border: 1px solid #336699;
+	font-size:18px;
+	border: 1px solid #2769E4;
 	background-color:#66CCFF;
-	height:35px;
-	width:80px;
+	height:45px;
+	width:110px;
 }
 input.submitbutton:hover
 {
 	display:block;
-	border: 2px solid #336699;
+	font-size:18px;
+	border: 2px solid #2769E4;
 	background-color:#66CCFF;
-	height:35px;
-	width:80px;
+	height:45px;
+	width:110px;
+}
+select {
+    border: 0px none;
+    color: #FFFFFF;
+    background:#001940;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 10px;
+    width: 378px;
+    *width: 350px;
+    *background: #001940;
+}
+
+#mainselection {
+    overflow: hidden;
+    width: 350px;
+    background: url("img/arrow.png") no-repeat scroll 319px 5px #001940;
+    border: 1px solid #2769E4
+}
+hr
+{
+	border:1px solid black;
 }
