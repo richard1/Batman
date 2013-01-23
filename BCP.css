@@ -101,6 +101,19 @@ hr
 	border:1px solid black;
 }
 
+#wrap {
+   width:90%;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:45%;
+}
+#right_col {
+   float:right;
+   width:45%;
+}
+
 .dl-horizontal {
 	*zoom:1
 }
