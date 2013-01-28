@@ -9,21 +9,12 @@
 
 	mysql_select_db($CFG->database, $con);
 
-	$sql="SELECT name FROM sessions WHERE id = '".$q."'";
+	$sql="SELECT * FROM sessions WHERE id = '".$q."'";
 
 	$result = mysql_query($sql);
 
-	/*echo "<table border='1'>
-	<tr>
-	<th>Firstname</th>
-	<th>Lastname</th>
-	<th>Age</th>
-	<th>Hometown</th>
-	<th>Job</th>
-	</tr>";*/
-
 	while($row = mysql_fetch_array($result)) {
-		echo $row['name'];		
+		echo "<h3>" . $row['name'] . "</h3><h5>" . $row['speaker'] . " - " . $row['room'] . "</h5><p>" . $row['description'];
 	}
 
 	mysql_close($con);
