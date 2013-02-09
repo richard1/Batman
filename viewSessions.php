@@ -4,8 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Justice Summit | View Sessions</title>
 	<link rel="stylesheet" type="text/css" href="BCP.css" />
-	<link href="metro/css/m-styles.min.css" rel="stylesheet">
 	<link rel="icon" type="image/png" href="img/batman.png">
+	<link rel="stylesheet" type="text/css" href="bootstrap/buttons.css" />
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/icons.css" />
 </head>
 
 <body>
@@ -33,12 +34,15 @@
 				echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 			}
 			
-			$studNameQuery = $mysqli->query("SELECT name FROM users WHERE id = $id") or die("Failed to lookup student name");
-			$studRow = $studNameQuery->fetch_assoc();
-			$studName = $studRow['name'];
+			/*
 			echo "<a href='#' class='m-btn'>Showing sessions for <b>$id</b></a>";
 			echo "<a href='index.php' class='m-btn blue'><i class='icon-circle-arrow-left icon-white'></i> Back</a>";
 			echo "<a href='javascript:window.print()' class='m-btn blue'>Print <i class='icon-print icon-white'></i></a>";
+			*/
+
+			echo '<button type="button" class="btn">Showing sessions for <b>' . $id . '</b></button>&nbsp;&nbsp;&nbsp;';
+			echo '<button class="btn btn-primary" onclick="window.location.href=' . '\'index.php\'' . '"><i class="icon-circle-arrow-left icon-white"></i> Back</button>&nbsp;&nbsp;&nbsp;';
+			echo '<button class="btn btn-primary" onclick="window.print();">Print <i class="icon-print icon-white"></i></button>';
 			
 			$query = $mysqli->query("SELECT sessionID FROM user_sessions WHERE userID = $id") or die("Failed to lookup session ID");
 			echo "<br /><br />";
@@ -46,8 +50,8 @@
 			
 				//echo "<b>Session " . $row['sessionID'] . ": Monday April 1, 10:00 - 10:50 AM</b><br />";
 				
-				$dayQuery = $mysqli->query("SELECT day FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup day");
-				while ($subrow = $dayQuery->fetch_assoc()) {
+				$subQuery = $mysqli->query("SELECT * FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup day");
+				while ($subrow = $subQuery->fetch_assoc()) {
 					$theDay = $subrow['day'];
 					echo "<div class='well well-tiny'><b>Session " . $theDay . ": ";
 					if($theDay == 1) echo $day1;
@@ -55,29 +59,14 @@
 					else if($theDay == 3) echo $day3;
 					else echo $day4;
 					echo "</b>";
-				}
-				
-				echo "<dl class='dl-horizontal'>";
-				$nameQuery = $mysqli->query("SELECT name FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup session name");
-				while ($subrow = $nameQuery->fetch_assoc()) {
+					
+					echo "<dl class='dl-horizontal'>";
 					echo "<dt><b>Title</b></dt><dd>" . $subrow['name'] . "</dd>";
-				}
-				
-				$speakerQuery = $mysqli->query("SELECT speaker FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup speaker");
-				while ($subrow = $speakerQuery->fetch_assoc()) {
 					echo "<dt><b>Speaker</b></dt><dd>" . $subrow['speaker'] . "</dd>";
-				}
-				
-				$descQuery = $mysqli->query("SELECT description FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup description");
-				while ($subrow = $descQuery->fetch_assoc()) {
 					echo "<dt><b>Description</b></dt><dd>" . $subrow['description'] . "</dd>";
-				}
-				
-				$roomQuery = $mysqli->query("SELECT room FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup room");
-				while ($subrow = $roomQuery->fetch_assoc()) {
 					echo "<dt><b>Room</b></dt><dd>" . $subrow['room'] . "</dd>";
+					echo "</dl></div>";
 				}
-				echo "</dl></div>";
 			}
 		}
 		else {

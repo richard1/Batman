@@ -72,6 +72,7 @@ input.signup:hover
 	height:50px;
 	width:200px;
 }
+/*
 select {
     border: 0px none;
     color: #FFFFFF;
@@ -90,6 +91,7 @@ select {
     background: url("img/arrow.png") no-repeat scroll 319px 5px #001940;
     border: 1px solid #2769E4
 }
+*/
 input.textboxy   {
 	display:block;
 	/*border: 1px solid #999;*/
