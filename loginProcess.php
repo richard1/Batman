@@ -36,7 +36,15 @@
 		}
 		
 		if($isFound == true) {
-			header("Location: register.php");
+			$countQuery = $mysqli->query("SELECT count(*) FROM user_sessions WHERE userID = $studentID");
+			$countRow = $countQuery->fetch_row();
+			$count = (int) $countRow[0];
+			if($count >= 3) {
+				header("Location: index.php?tab=2&errorLogin=6");
+			}
+			else {
+				header("Location: register.php?count=$count");
+			}
 		}
 		else {
 			header("Location: index.php?tab=2&errorLogin=4"); // incorrect info

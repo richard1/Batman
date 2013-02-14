@@ -187,6 +187,7 @@
 						$errNothing = 3;
 						$errIncorrect = 4;
 						$errRestricted = 5;
+						$errOverflow = 6;
 						if(isset($_GET['errorLogin'])) {
 							echo "<div class='alert alert-info'>";
 							if($_GET['errorLogin'] == $errNoUser)
@@ -199,6 +200,8 @@
 								echo "<b>ERROR!</b> Username or password is incorrect.";
 							else if ($_GET['errorLogin'] == $errRestricted)
 								echo "<b>ERROR!</b> You have been signed out, or this page you requested is restricted.  Please sign in.";
+							else if ($_GET['errorLogin'] == $errOverflow)
+								echo "<b>ERROR!</b> You have already signed up for your justice summit sessions.";
 							echo "</div><br />";
 						}
 					?>
@@ -221,7 +224,12 @@
 				  <h1>Welcome!</h1>
 				  <br />
 				  <p>Created by <a href="mailto:richard.lin13@bcp.org">Richard Lin '13</a> for Mr. Lindemann's Fall 2012 Web Apps class.</p>
-				  <p>This website would not be this awesome without the help of <a href="mailto:jonathan.chang13@bcp.org">Jonathan Chang '13</a> and <a href="mailto:stephen.pinkerton14@bcp.org">Stephen Pinkerton '14</a>.</p>
+				  <p>This website would not be this awesome without the help of the following students:</p>
+				  	<ul>
+				  		<li><a href="mailto:jonathan.chang13@bcp.org">Jonathan Chang '13</a></li>
+				  		<li><a href="mailto:stephen.pinkerton14@bcp.org">Stephen Pinkerton '14</a></li>
+				  		<li><a href="mailto:francisco.sanchez13@bcp.org">Francisco Sanchez '13</a></li>
+				  	</ul>
 				<br />
 				<p>Built with the help of the incredible <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> framework.</p><br />
 				<p>Comments?  Questions?  Suggestions?  Please feel free to let me know.</p>
