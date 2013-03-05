@@ -28,8 +28,9 @@
 		while ($row = $query->fetch_assoc()) {
 			$theEmail = $row['email'];
 			$theID = $row['id'];
-			echo $theEmail . " " . $row['email'] . "<br />" . $theID . " " . $row['id'];
-			if($email == $theEmail && $studentID == $theID) {
+			//echo $theEmail . " " . $row['email'] . "<br />" . $theID . " " . $row['id'];
+			//if($email == $theEmail && $studentID == $theID) {
+			if(strcasecmp($email, $theEmail) == 0 && $studentID == $theID) {
 				$isFound = true;
 				$_SESSION['id'] = $studentID;
 			}

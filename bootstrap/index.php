@@ -17,58 +17,19 @@
 	<link rel="stylesheet" type="text/css" href="bootstrap/body.css" />
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/icons.css" />
 	<link rel="icon" type="image/png" href="img/batman.png">
-	<script>
-		var prev;
-		$("document").ready(function(){
-			var activeTab = null;
-			$('a[data-toggle="tab"]').on('shown', function (e) {
-			  activeTab = e.target;
-			  var len = activeTab.toString().length;
-			  
-			  if (typeof prev != "undefined") {
-					//alert("Changing... prev: " + prev);
-					if(prev == 'contact') {
-						$('i.icon-envelope').toggleClass('icon-white');
-					}
-					else if(prev == 'sign up') {
-						$('i.icon-user').toggleClass('icon-white');
-					}
-					else if(prev == 'view') {
-						$('i.icon-th-list').toggleClass('icon-white');
-					}
-				}
-			  
-			  if(activeTab.toString().charAt(len - 1) == 't') {
-				$('i.icon-envelope').toggleClass('icon-white');
-				prev = 'contact';
-			  }
-			  else if(activeTab.toString().charAt(len - 1) == 'n') {
-				$('i.icon-user').toggleClass('icon-white');
-				prev = 'sign up';
-			  }
-			  else if(activeTab.toString().charAt(len - 1) == 'w') {
-				$('i.icon-th-list').toggleClass('icon-white');
-				prev = 'view';
-			  }
-			});
-			
-			$("a.tabby1").hover(function(){
-				$('i.icon-th-list').toggleClass('icon-white');
-			});
-			$("a.tabby2").hover(function(){
-				$('i.icon-user').toggleClass('icon-white');
-			});
-			$("a.tabby3").hover(function(){
-				$('i.icon-envelope').toggleClass('icon-white');
-			});
-		});
-	</script>
 </head>
 
 <body style="margin-left:20px; margin-right:20px;">
+	<!--<div class="header">
+		<table width=100%>
+		<tr><td><h1>Justice Summit</h1>
+		</div></td>
+		<td><a href="index.php"><img src="bell.png" height=10% width=10% align=right /></a></td></tr>
+		</table>
+	</div>-->
 
-	<div class="page-header"><a href="index.php" class="thehead" id="thehead">
-	  <h1>Justice Summit <small>Restorative Justice</small></h1></a>
+	<div class="page-header">
+	  <h1>Justice Summit <small>Restorative Justice</small></h1>
 	</div>
 
     <br />
@@ -89,9 +50,24 @@
 		    	$tabLogin = 2;
 		    	$tabContact = 3;
 		    	global $tabNum;
-				echo "<li class='active'><a href='#view' data-toggle='tab' class='tabby1'><i class='icon-th-list icon-white'></i> View Sessions</a></li>
-					<li><a href='#login' data-toggle='tab' class='tabby2'><i class='icon-user icon-white'></i> Sign Up</a></li>
-					<li><a href='#contact' data-toggle='tab' class='tabby3'><i class='icon-envelope icon-white'></i> Contact Us</a></li>";
+		    	if(isset($_GET['tab'])) {
+		    		$tabNum = $_GET['tab'];
+		    		if($tabNum == $tabLogin) {
+		    			echo "<li><a href='#view' data-toggle='tab' class='tabby'><i class='icon-th-list icon-white'></i> View Sessions</a></li>
+		  					<li class='active'><a href='#login' data-toggle='tab' class='tabby'><i class='icon-user'></i> Sign Up</a></li>
+		  					<li><a href='#contact' data-toggle='tab' class='tabby'><i class='icon-envelope icon-white'></i> Contact Us</a></li>";
+		    		}
+		    		else {
+		    			echo "<li class='active'><a href='#view' data-toggle='tab' class='tabby'><i class='icon-th-list'></i> View Sessions</a></li>
+		  					<li><a href='#login' data-toggle='tab' class='tabby'><i class='icon-user'></i> Sign Up</a></li>
+		  					<li><a href='#contact' data-toggle='tab' class='tabby'><i class='icon-envelope'></i> Contact Us</a></li>";
+		    		}
+		    	}
+		    	else {
+		    			echo "<li class='active'><a href='#view' data-toggle='tab' class='tabby'><i class='icon-th-list'></i> View Sessions</a></li>
+		  					<li><a href='#login' data-toggle='tab' class='tabby'><i class='icon-user'></i> Sign Up</a></li>
+		  					<li><a href='#contact' data-toggle='tab' class='tabby'><i class='icon-envelope'></i> Contact Us</a></li>";
+		    	}
 		    ?>
 		    <!--
 		  <li><a href="#view" data-toggle="tab">View Sessions</a></li>
@@ -176,14 +152,13 @@
 								echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 							}
 							
-							echo "<br /><div class='alert alert-block'><table width='30%'><tr><td><b>Name</b></td><td><b>Year</b></td></tr>";
+							echo "<br /><div class='alert alert-block'><table width='30%'><tr><td><b>Student ID</b></td><td><b>Name</b></td></tr>";
 							$userIDQuery = $mysqli->query("SELECT userID FROM user_sessions WHERE sessionID = $sessID") or die("Failed to lookup student ID");
 							while ($row = $userIDQuery->fetch_assoc()) {
 								$userID = $row['userID'];
-								$year = floor($userID / 1000) % 100;
 								$nameQuery = $mysqli->query("SELECT name FROM users WHERE id = $userID") or die("Failed to lookup student name");
 								while ($subrow = $nameQuery->fetch_assoc()) {
-									echo "<tr><td>" . $subrow['name'] . "</td><td>'" . $year . "</tr>";
+									echo "<tr><td>" . $userID . "</td><td>" . $subrow['name'] . "</td></tr>";
 								}
 							}
 							echo "</table></div>";
@@ -238,7 +213,7 @@
 							<input type="text" class="span2" maxlength="50" id="appendedInput" name="email" placeholder="BCP Email" autocomplete="off" style="width:200px" />
 							<span class="add-on" style="color:#000000">@bcp.org</span>
 						</div>&nbsp;&nbsp;
-						<input type="text" name="studentID" placeholder="Student ID" maxlength="6" autocomplete="off" />&nbsp;&nbsp;
+						<input type="text" name="studentID" placeholder="Student ID" maxlength="6" />&nbsp;&nbsp;
 						<button type="submit" class="btn btn-primary" name="submit">Login</button>
 					</form>
 			
@@ -252,12 +227,12 @@
 				  <p>This website would not be this awesome without the help of the following students:</p>
 				  	<ul>
 				  		<li><a href="mailto:jonathan.chang13@bcp.org">Jonathan Chang '13</a></li>
-						<li><a href="mailto:francisco.sanchez13@bcp.org">Francisco Sanchez '13</a></li>
-				  		<li><a href="mailto:stephen.pinkerton14@bcp.org">Stephen Pinkerton '14</a></li>				  		
+				  		<li><a href="mailto:stephen.pinkerton14@bcp.org">Stephen Pinkerton '14</a></li>
+				  		<li><a href="mailto:francisco.sanchez13@bcp.org">Francisco Sanchez '13</a></li>
 				  	</ul>
 				<br />
 				<p>Built with the help of the incredible <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> framework.</p><br />
-				<p>Designed for maximum convenience and user satisfaction.<br />Comments?  Questions?  Suggestions?  Please feel free to let us know.</p>
+				<p>Comments?  Questions?  Suggestions?  Please feel free to let me know.</p>
 				<p>Enjoy, and <b>Go Bells!</b></p>
 				  <!--<p>
 					<a class="btn btn-primary btn-large">

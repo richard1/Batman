@@ -14,11 +14,14 @@
 		require_once("conf.inc.php");
 		
 		// Change session times and dates as necessary
-		$day1 = "Monday, April 1st, 10:20 - 11:10 AM";
-		$day2 = "Monday, April 1st, 11:20 - 12:10 PM";
-		$day3 = "Tuesday, April 2nd, 10:20 - 11:10 AM";
-		$day4 = "Tuesday, April 2nd, 11:20 - 12:10 PM";
+		$day1 = "Thursday, March 21st, 11:20 AM - 12:10 PM";
+		$day2 = "Thursday, March 21st, 12:55 PM - 1:45 PM";
+		$day3 = "Thursday, March 21st, 1:55 PM - 2:45 PM";
 		
+		$info1 = "";
+		$info2 = "";
+		$info3 = "";
+
         if(isset($_POST['id'])) {
             $id = $_POST['id'];
 			if(strlen($id) != 6)
@@ -26,6 +29,9 @@
 			else if(!(is_int($id) || ctype_digit($id)))
 				header("Location: index.php?error=2");
 			else if(substr($id, 0, 2) != "21") {
+				header("Location: index.php?error=3");
+			}
+			else if(substr($id, 0, 3) != "213" && substr($id, 0, 3) != "214" && substr($id, 0, 3) != "215" && substr($id, 0, 3) != "216") {
 				header("Location: index.php?error=3");
 			}
 					
@@ -46,28 +52,48 @@
 			
 			$query = $mysqli->query("SELECT sessionID FROM user_sessions WHERE userID = $id") or die("Failed to lookup session ID");
 			echo "<br /><br />";
-			while ($row = $query->fetch_assoc()) {
-			
-				//echo "<b>Session " . $row['sessionID'] . ": Monday April 1, 10:00 - 10:50 AM</b><br />";
-				
+			while ($row = $query->fetch_assoc()) {				
 				$subQuery = $mysqli->query("SELECT * FROM sessions WHERE id = {$row['sessionID']}") or die("Failed to lookup day");
 				while ($subrow = $subQuery->fetch_assoc()) {
 					$theDay = $subrow['day'];
-					echo "<div class='well well-tiny'><b>Session " . $theDay . ": ";
-					if($theDay == 1) echo $day1;
-					else if($theDay == 2) echo $day2;
-					else if($theDay == 3) echo $day3;
-					else echo $day4;
+					//echo "<div class='well well-tiny'><b>Session " . $theDay . ": ";
+					if($theDay == 1) {
+						$info1 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day1;
+						$info1 .= "</b>" . "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
+						$info1 .= "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+						$info1 .=  "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
+						$info1 .=  "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
+						$info1 .=  "</dl></div>";
+					}
+					else if($theDay == 2) {
+						$info2 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day2;
+						$info2 .= "</b>" . "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
+						$info2 .= "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+						$info2 .=  "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
+						$info2 .=  "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
+						$info2 .=  "</dl></div>";
+					}
+					else if($theDay == 3) {
+						$info3 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day3;
+						$info3 .= "</b>" . "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
+						$info3 .= "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+						$info3 .=  "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
+						$info3 .=  "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
+						$info3 .=  "</dl></div>";
+					}
+					/*
 					echo "</b>";
 					
 					echo "<dl class='dl-horizontal'>";
-					echo "<dt><b>Title</b></dt><dd>" . $subrow['name'] . "</dd>";
-					echo "<dt><b>Speaker</b></dt><dd>" . $subrow['speaker'] . "</dd>";
-					echo "<dt><b>Description</b></dt><dd>" . $subrow['description'] . "</dd>";
-					echo "<dt><b>Room</b></dt><dd>" . $subrow['room'] . "</dd>";
+					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
+					echo "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+					echo "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
+					echo "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
 					echo "</dl></div>";
+					*/
 				}
 			}
+			echo $info1 . $info2 . $info3;
 		}
 		else {
 			echo "<h2>ID not given.</h2>";

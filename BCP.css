@@ -4,7 +4,7 @@ body
 {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color:#001940;
-  font-size: 16px;
+  font-size: 15px;
 	color:white;
 }
 div.header
@@ -30,6 +30,51 @@ a:hover.tabby {
   color:#000000;
 }  /* mouse over link */
 a:active.tabby {
+  color:#000000;
+}  /* selected link */
+
+a:link.tabby1 {
+  color:#FFFFFF;
+  text-decoration:none;
+}      /* unvisited link */
+a:visited.tabby1 {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* visited link */
+a:hover.tabby1 {
+  color:#000000;
+}  /* mouse over link */
+a:active.tabby1 {
+  color:#000000;
+}  /* selected link */
+
+a:link.tabby2 {
+  color:#FFFFFF;
+  text-decoration:none;
+}      /* unvisited link */
+a:visited.tabby2 {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* visited link */
+a:hover.tabby2 {
+  color:#000000;
+}  /* mouse over link */
+a:active.tabby2 {
+  color:#000000;
+}  /* selected link */
+
+a:link.tabby3 {
+  color:#FFFFFF;
+  text-decoration:none;
+}      /* unvisited link */
+a:visited.tabby3 {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* visited link */
+a:hover.tabby3 {
+  color:#000000;
+}  /* mouse over link */
+a:active.tabby3 {
   color:#000000;
 }  /* selected link */
 
@@ -649,3 +694,20 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
      -moz-border-radius: 3px;
           border-radius: 3px;
 }
+
+a:link.thehead {
+  color:#FFFFFF;
+  text-decoration:none;
+}      /* unvisited link */
+a:visited.thehead {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* visited link */
+a:hover.thehead {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* mouse over link */
+a:active.thehead {
+  color:#FFFFFF;
+  text-decoration:none;
+}  /* selected link */

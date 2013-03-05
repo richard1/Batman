@@ -18,36 +18,30 @@
 	}
 
 	if(isset($_POST['sess1'])) {
-		if(isset($_SESSION['sess2'])) {
+		if(isset($_SESSION['sess2']))
 			if($_POST['sess1'] == $_SESSION['sess2'] - 1)
 				header("Location: register.php?page=1&error=2");
-		}
-		if(isset($_SESSION['sess3'])) {
+		if(isset($_SESSION['sess3']))
 			if($_POST['sess1'] == $_SESSION['sess3'] - 2)
 				header("Location: register.php?page=1&error=2");
-		}
 		$_SESSION['sess1'] = $_POST['sess1'];
 	}
 	if(isset($_POST['sess2'])) {
-		if(isset($_SESSION['sess1'])) {
+		if(isset($_SESSION['sess1']))
 			if($_POST['sess2'] == $_SESSION['sess1'] + 1)
 				header("Location: register.php?page=1&error=2");
-		}
-		if(isset($_SESSION['sess3'])) {
+		if(isset($_SESSION['sess3']))
 			if($_POST['sess2'] == $_SESSION['sess3'] - 1)
 				header("Location: register.php?page=1&error=2");
-		}
 		$_SESSION['sess2'] = $_POST['sess2'];
 	}
 	if(isset($_POST['sess3'])) {
-		if(isset($_SESSION['sess2'])) {
+		if(isset($_SESSION['sess2']))
 			if($_POST['sess3'] == $_SESSION['sess2'] + 1)
 				header("Location: register.php?page=1&error=2");
-		}
-		if(isset($_SESSION['sess1'])) {
+		if(isset($_SESSION['sess1']))
 			if($_POST['sess3'] == $_SESSION['sess1'] + 2)
 				header("Location: register.php?page=1&error=2");
-		}
 		$_SESSION['sess3'] = $_POST['sess3'];
 	}
 
@@ -146,13 +140,8 @@
 				echo "<br /><div class='alert alert-info' style='margin-right:20px'><i class='icon-ok-circle'></i> <b>Save successful!</b> Session <b>$prev</b> registration saved.</div>";
 			}
 		}
-		else if(isset($_GET['error'])) {
-			if($_GET['error'] == 1) {
-				echo "<br /><div class='alert alert-error' style='margin-right:20px'><i class='icon-remove'></i> Please select and save your Session <b>$page</b> preference.</div>";
-			}
-			else if($_GET['error'] == 2) {
-				echo "<br /><div class='alert alert-error' style='margin-right:20px'><i class='icon-remove'></i> You cannot sign up for the same presentation twice.</div>";
-			}
+		else if(isset($_GET['error']) && $_GET['error'] == 1) {
+			echo "<br /><div class='alert alert-error' style='margin-right:20px'><i class='icon-remove'></i> Please select and save your Session <b>$page</b> preference.</div>";
 		}
 	?>
 	
@@ -180,7 +169,7 @@
 					if($page == 1) {
 						$output = <<<EOD
 							<h3>Session 1</h3>
-							<h4>Thursday, March 21st, 11:20 AM - 12:10 PM</h4>
+							<h4>Monday, April 1st, 10:20 - 11:10 AM</h4>
 							<select name="sess1" id="sess1" class="m-wrap" size="20" style="width:80%; cursor:auto" onchange="showUser(); return false;">
 							<option value="null" disabled>Select your Session 1 below...</option>
 EOD;
@@ -224,7 +213,7 @@ EOD;
 					}
 					else if($page == 2) {
 						$output = <<<EOD
-							<h3>Session 2</h3><h4>Thursday, March 21st, 12:55 PM - 1:45 PM</h4>
+							<h3>Session 2</h3><h4>Monday, April 1st, 11:20 - 12:10 PM</h4>
 							<select name="sess2" id="sess2" class="m-wrap" size="20" style="width:80%; cursor:auto" onchange="showUser(); return false;">
 								<option value="null" disabled>Select your Session 2 below...</option>
 EOD;
@@ -270,7 +259,7 @@ EOD;
 					}
 					else if($page == 3) {
 						$output = <<<EOD
-							<h3>Session 3</h3><h4>Thursday, March 21st, 1:55 PM - 2:45 PM</h4>
+							<h3>Session 3</h3><h4>Tuesday, April 2nd, 10:20 - 11:10 AM</h4>
 							<select name="sess3" id="sess3" class="m-wrap" size="20" style="width:80%; cursor:auto" onchange="showUser(); return false;">
 								<option value="null" disabled>Select your Session 3 below...</option>
 EOD;
@@ -349,11 +338,11 @@ EOD;
 	<div>
 	<div class="pagination pagination-centered">
 		<ul>
-			<li <?php if($page == 1) echo 'class="disabled"'; ?>><a href="register.php?page= <?php if($page == 2) echo "1"; else if($page == 3) echo "2"; ?>">&laquo; Prev</a></li>
+			<li <?php if($page == 1) echo 'class="disabled"'; ?>><a href="register.php?page= <?php if($page == 2) echo "1"; else if($page == 3) echo "2"; ?>"><i class='icon-chevron-left'></i> Prev</a></li>
 			<li <?php if($page == 1) echo 'class="active"'; ?>><a href="register.php?page=1">1</a></li>
 			<li <?php if($page == 2) echo 'class="active"'; ?>><a href="register.php?page=2">2</a></li>
 			<li <?php if($page == 3) echo 'class="active"'; ?>><a href="register.php?page=3">3</a></li>
-			<li <?php if($page == 3) echo 'class="disabled"'; ?>><a href="register.php?page= <?php if($page == 1) echo "2"; else if($page == 2) echo "3"; ?>">Next &raquo;</a></li>
+			<li <?php if($page == 3) echo 'class="disabled"'; ?>><a href="register.php?page= <?php if($page == 1) echo "2"; else if($page == 2) echo "3"; ?>">Next <i class='icon-chevron-right'></i></a></li>
 		</ul>
 	</div>
 </body>

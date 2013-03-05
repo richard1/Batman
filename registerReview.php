@@ -22,20 +22,38 @@
 		$sessID3 = "";
 	
 		// Take care of page 3
-		if(isset($_POST['sess3']))
+		if(isset($_POST['sess3'])) {
+			if(isset($_SESSION['sess2'])) {
+				if($_POST['sess3'] == $_SESSION['sess2'] + 1)
+					header("Location: register.php?page=1&error=2");
+			}
+			if(isset($_SESSION['sess1'])) {
+				if($_POST['sess3'] == $_SESSION['sess1'] + 2)
+					header("Location: register.php?page=1&error=2");
+			}
 			$_SESSION['sess3'] = $_POST['sess3'];
+		}
 		
-		// CLEAR SESSION VARIABLES WHEN USER FINSIHES REGISTERING!
 		if(isset($_SESSION['sess1'])) {
 			$sessID1 = $_SESSION['sess1'];
+
+			if(isset($_SESSION['sess2'])) {
+				$sessID2 = $_SESSION['sess2'];
+
+				if(isset($_SESSION['sess3'])) {
+					$sessID3 = $_SESSION['sess3'];
+				}
+				else {
+					header("Location: register.php?page=3&error=1");
+				}
+			}
+			else {
+				header("Location: register.php?page=2&error=1");
+			}
 		}
-		if(isset($_SESSION['sess2'])) {
-			$sessID2 = $_SESSION['sess2'];
+		else {
+			header("Location: register.php?page=1&error=1");
 		}
-		if(isset($_SESSION['sess3'])) {
-			$sessID3 = $_SESSION['sess3'];
-		}
-		
 		
 		// Change session times and dates as necessary
 		$day1 = "Monday, April 1st, 10:20 - 11:10 AM";
@@ -51,7 +69,7 @@
 				echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 			}
 			
-			echo "<h2>Reviewing sessions for <b>$id</b></h2><br />";
+			echo "<h2>Reviewing sessions for: <b>$id</b></h2><h4>Click <i>Register</i> once you've finalized your choices.  If you'd like to change your mind, click <i>Revise</i>.</h4><br />";
 			//echo "<a href='#' class='m-btn'>Showing sessions for <b>$id</b></a><br /><br />";
 			
 			if(strlen($sessID1) > 0) {
@@ -66,10 +84,10 @@
 					echo "</b>";
 					
 					echo "<dl class='dl-horizontal'>";
-					echo "<dt><b>Title</b></dt><dd>" . $row['name'] . "</dd>";
-					echo "<dt><b>Speaker</b></dt><dd>" . $row['speaker'] . "</dd>";
-					echo "<dt><b>Description</b></dt><dd>" . $row['description'] . "</dd>";
-					echo "<dt><b>Room</b></dt><dd>" . $row['room'] . "</dd>";
+					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $row['name'] . "</dd>";
+					echo "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $row['speaker'] . "</dd>";
+					echo "<dt><span class='label label-info'>Description</span></dt><dd>" . $row['description'] . "</dd>";
+					echo "<dt><span class='label label-info'>Room</span></dt><dd>" . $row['room'] . "</dd>";
 					echo "</dl></div>";
 				}
 			}
@@ -86,10 +104,10 @@
 					echo "</b>";
 					
 					echo "<dl class='dl-horizontal'>";
-					echo "<dt><b>Title</b></dt><dd>" . $row['name'] . "</dd>";
-					echo "<dt><b>Speaker</b></dt><dd>" . $row['speaker'] . "</dd>";
-					echo "<dt><b>Description</b></dt><dd>" . $row['description'] . "</dd>";
-					echo "<dt><b>Room</b></dt><dd>" . $row['room'] . "</dd>";
+					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $row['name'] . "</dd>";
+					echo "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $row['speaker'] . "</dd>";
+					echo "<dt><span class='label label-info'>Description</span></dt><dd>" . $row['description'] . "</dd>";
+					echo "<dt><span class='label label-info'>Room</span></dt><dd>" . $row['room'] . "</dd>";
 					echo "</dl></div>";
 				}
 			}
@@ -106,10 +124,10 @@
 					echo "</b>";
 					
 					echo "<dl class='dl-horizontal'>";
-					echo "<dt><b>Title</b></dt><dd>" . $row['name'] . "</dd>";
-					echo "<dt><b>Speaker</b></dt><dd>" . $row['speaker'] . "</dd>";
-					echo "<dt><b>Description</b></dt><dd>" . $row['description'] . "</dd>";
-					echo "<dt><b>Room</b></dt><dd>" . $row['room'] . "</dd>";
+					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $row['name'] . "</dd>";
+					echo "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $row['speaker'] . "</dd>";
+					echo "<dt><span class='label label-info'>Description</span></dt><dd>" . $row['description'] . "</dd>";
+					echo "<dt><span class='label label-info'>Room</span></dt><dd>" . $row['room'] . "</dd>";
 					echo "</dl></div>";
 				}
 			}
