@@ -58,17 +58,25 @@
 					$theDay = $subrow['day'];
 					//echo "<div class='well well-tiny'><b>Session " . $theDay . ": ";
 					if($theDay == 1) {
-						$info1 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day1;
-						$info1 .= "</b>" . "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
-						$info1 .= "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+						$info1 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day1 . "</b>"; 
+						if($row['sessionID'] == 89 || $row['sessionID'] == 90 || $row['sessionID'] == 92 || $row['sessionID'] == 93) {
+							// Too much of a hassle, especially since we're mixing and matching
+							// $info1 .= "&nbsp;&nbsp;&nbsp;<span class='label label-important'>Required</span>";
+						}
+						$info1 .= "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'];
+						$info1 .= "</dd><dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
 						$info1 .=  "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
 						$info1 .=  "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
 						$info1 .=  "</dl></div>";
 					}
 					else if($theDay == 2) {
-						$info2 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day2;
-						$info2 .= "</b>" . "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'] . "</dd>";
-						$info2 .= "<dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
+						$info2 .= "<div class='well well-tiny'><b>Session " . $theDay . ": " . $day2 . "</b>"; 
+						if($row['sessionID'] == 89 || $row['sessionID'] == 90 || $row['sessionID'] == 92 || $row['sessionID'] == 93) {
+							// Too much of a hassle, especially since we're mixing and matching
+							// $info2 .= "&nbsp;&nbsp;&nbsp;<span class='label label-important'>Required</span>";
+						}
+						$info2 .= "<dl class='dl-horizontal'>" . "<dt><span class='label label-info'>Title</span></dt><dd>" . $subrow['name'];
+						$info2 .= "</dd><dt><span class='label label-info'>Speaker</span></dt><dd>" . $subrow['speaker'] . "</dd>";
 						$info2 .=  "<dt><span class='label label-info'>Description</span></dt><dd>" . $subrow['description'] . "</dd>";
 						$info2 .=  "<dt><span class='label label-info'>Room</span></dt><dd>" . $subrow['room'] . "</dd>";
 						$info2 .=  "</dl></div>";

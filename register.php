@@ -19,33 +19,33 @@
 
 	if(isset($_POST['sess1'])) {
 		if(isset($_SESSION['sess2'])) {
-			if($_POST['sess1'] == $_SESSION['sess2'] - 1)
+			if($_POST['sess1'] == $_SESSION['sess2'] - 1 && $_POST['sess1'] != 95)
 				header("Location: register.php?page=1&error=2");
 		}
 		if(isset($_SESSION['sess3'])) {
-			if($_POST['sess1'] == $_SESSION['sess3'] - 2)
+			if($_POST['sess1'] == $_SESSION['sess3'] - 2 && $_POST['sess1'] != 95)
 				header("Location: register.php?page=1&error=2");
 		}
 		$_SESSION['sess1'] = $_POST['sess1'];
 	}
 	if(isset($_POST['sess2'])) {
 		if(isset($_SESSION['sess1'])) {
-			if($_POST['sess2'] == $_SESSION['sess1'] + 1)
+			if($_POST['sess2'] == $_SESSION['sess1'] + 1 && $_POST['sess2'] != 96)
 				header("Location: register.php?page=1&error=2");
 		}
 		if(isset($_SESSION['sess3'])) {
-			if($_POST['sess2'] == $_SESSION['sess3'] - 1)
+			if($_POST['sess2'] == $_SESSION['sess3'] - 1 && $_POST['sess2'] != 96)
 				header("Location: register.php?page=1&error=2");
 		}
 		$_SESSION['sess2'] = $_POST['sess2'];
 	}
 	if(isset($_POST['sess3'])) {
 		if(isset($_SESSION['sess2'])) {
-			if($_POST['sess3'] == $_SESSION['sess2'] + 1)
+			if($_POST['sess3'] == $_SESSION['sess2'] + 1 && $_POST['sess3'] != 97)
 				header("Location: register.php?page=1&error=2");
 		}
 		if(isset($_SESSION['sess1'])) {
-			if($_POST['sess3'] == $_SESSION['sess1'] + 2)
+			if($_POST['sess3'] == $_SESSION['sess1'] + 2 && $_POST['sess3'] != 97)
 				header("Location: register.php?page=1&error=2");
 		}
 		$_SESSION['sess3'] = $_POST['sess3'];
@@ -198,9 +198,17 @@ EOD;
 										if(isset($_SESSION['sess1']) && $sessID == $_SESSION['sess1'] ) {
 											$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
 										}
+										else if($sessID == 95) { // PLANNED ABSENCE 1
+											$output .= $prefix . '>' . $sessName . '</option>';
+										}
 										else if($class == 214) {
 											if($sessID == 92) { // Juniors in leontyne for sesssion 1
-												$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												if(isset($_SESSION['sess1']) && $_SESSION['sess1'] == 95) {
+													$output .= $prefix . '>' . $sessName . '</option>';
+												}
+												else {
+													$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												}
 											}
 											else {
 												$output .= $prefix . 'disabled' . '>' . $sessName . '</option>';
@@ -208,7 +216,12 @@ EOD;
 										}
 										else if($class == 215) {
 											if($sessID == 89) { // Sophs in sobrato for session 1
-												$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												if(isset($_SESSION['sess1']) && $_SESSION['sess1'] == 95) {
+													$output .= $prefix . '>' . $sessName . '</option>';
+												}
+												else {
+													$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												}
 											}
 											else {
 												$output .= $prefix . 'disabled' . '>' . $sessName . '</option>';
@@ -241,12 +254,20 @@ EOD;
 										$sessName = $row['name'];
 
 										$prefix = '<option value="' . $sessID . '" ';
-										if(isset($_SESSION['sess1']) && $sessID == $_SESSION['sess1'] ) {
+										if(isset($_SESSION['sess2']) && $sessID == $_SESSION['sess2'] ) {
 											$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+										}
+										else if($sessID == 96) { // PLANNED ABSENCE 2
+											$output .= $prefix . '>' . $sessName . '</option>';
 										}
 										else if($class == 213) {
 											if($sessID == 93) { // Juniors in leontyne for sesssion 1
-												$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												if(isset($_SESSION['sess2']) && $_SESSION['sess2'] == 96) {
+													$output .= $prefix . '>' . $sessName . '</option>';
+												}
+												else {
+													$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												}
 											}
 											else {
 												$output .= $prefix . 'disabled' . '>' . $sessName . '</option>';
@@ -254,7 +275,12 @@ EOD;
 										}
 										else if($class == 216) {
 											if($sessID == 90) { // Sophs in sobrato for session 1
-												$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												if(isset($_SESSION['sess2']) && $_SESSION['sess2'] == 96) {
+													$output .= $prefix . '>' . $sessName . '</option>';
+												}
+												else {
+													$output .= $prefix . 'selected="selected"' . '>' . $sessName . '</option>';
+												}
 											}
 											else {
 												$output .= $prefix . 'disabled' . '>' . $sessName . '</option>';
@@ -297,7 +323,7 @@ EOD;
 					?>
 						
 				</td>
-				<td align="center">
+				<td align="left">
 					<div id="txtHint">
 						<?php
 							require_once("conf.inc.php");

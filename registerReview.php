@@ -24,12 +24,12 @@
 		// Take care of page 3
 		if(isset($_POST['sess3'])) {
 			if(isset($_SESSION['sess2'])) {
-				if($_POST['sess3'] == $_SESSION['sess2'] + 1)
-					header("Location: register.php?page=1&error=2");
+				if($_POST['sess3'] == $_SESSION['sess2'] + 1 && $_POST['sess3'] != 97)
+					header("Location: register.php?page=3&error=2");
 			}
 			if(isset($_SESSION['sess1'])) {
-				if($_POST['sess3'] == $_SESSION['sess1'] + 2)
-					header("Location: register.php?page=1&error=2");
+				if($_POST['sess3'] == $_SESSION['sess1'] + 2 && $_POST['sess3'] != 97)
+					header("Location: register.php?page=3&error=2");
 			}
 			$_SESSION['sess3'] = $_POST['sess3'];
 		}
@@ -56,10 +56,9 @@
 		}
 		
 		// Change session times and dates as necessary
-		$day1 = "Monday, April 1st, 10:20 - 11:10 AM";
-		$day2 = "Monday, April 1st, 11:20 - 12:10 PM";
-		$day3 = "Tuesday, April 2nd, 10:20 - 11:10 AM";
-		$day4 = "Tuesday, April 2nd, 11:20 - 12:10 PM";
+		$day1 = "Thursday, March 21st, 11:20 AM - 12:10 PM";
+		$day2 = "Thursday, March 21st, 12:55 PM - 1:45 PM";
+		$day3 = "Thursday, March 21st, 1:55 PM - 2:45 PM";
 		
         if(isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
@@ -81,7 +80,11 @@
 					else if($theDay == 2) echo $day2;
 					else if($theDay == 3) echo $day3;
 					else echo $day4;
+					
 					echo "</b>";
+					if($sessID1 == 89 || $sessID1 == 90 || $sessID1 == 92 || $sessID1 == 93) {
+						echo "&nbsp;&nbsp;&nbsp;<span class='label label-important'>Required</span>";
+					}
 					
 					echo "<dl class='dl-horizontal'>";
 					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $row['name'] . "</dd>";
@@ -101,7 +104,11 @@
 					else if($theDay == 2) echo $day2;
 					else if($theDay == 3) echo $day3;
 					else echo $day4;
+					
 					echo "</b>";
+					if($sessID2 == 89 || $sessID2 == 90 || $sessID2 == 92 || $sessID2 == 93) {
+						echo "&nbsp;&nbsp;&nbsp;<span class='label label-important'>Required</span>";
+					}
 					
 					echo "<dl class='dl-horizontal'>";
 					echo "<dt><span class='label label-info'>Title</span></dt><dd>" . $row['name'] . "</dd>";

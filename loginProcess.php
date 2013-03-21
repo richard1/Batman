@@ -4,13 +4,13 @@
 	
 	if((!isset($_POST['email']) && !isset($_POST['studentID'])) ||
 			(strlen($_POST['email']) == 0 && strlen($_POST['studentID']) == 0)) {
-		header("Location: index.php?tab=2&errorLogin=3"); // nothing given
+		header("Location: index.php?errorLogin=3#login"); // nothing given
 	}
 	else if(!isset($_POST['email']) || strlen($_POST['email']) == 0) {
-		header("Location: index.php?tab=2&errorLogin=1"); // no user
+		header("Location: index.php?errorLogin=1#login"); // no user
 	}
 	else if(!isset($_POST['studentID']) || strlen($_POST['studentID']) == 0) {
-		header("Location: index.php?tab=2&errorLogin=2"); // no pass
+		header("Location: index.php?errorLogin=2#login"); // no pass
 	}
 	else {
 		$email = $_POST['email'] . "@bcp.org";
@@ -48,7 +48,7 @@
 			}
 		}
 		else {
-			header("Location: index.php?tab=2&errorLogin=4"); // incorrect info
+			header("Location: index.php?errorLogin=4#login"); // incorrect info
 		}
 	}
 ?>

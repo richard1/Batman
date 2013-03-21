@@ -27,12 +27,20 @@
 			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		}
 		
+		$ip = "No IP.";
+		$date = "No date.";
+		if(isset($_SERVER['REMOTE_ADDR'])) {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		if(date("r") != "") {
+			$date = date("r");
+		}
 		// Register user-session pair in user_sessions
-		$userSess1Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess1']) . ")") 
+		$userSess1Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID, ip, time) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess1']) . ", '" . $ip . "', '" . $date . "')") 
 			or die("Failed to submit sess1");
-		$userSess2Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess2']) . ")") 
+		$userSess2Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID, ip, time) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess2']) . ", '" . $ip . "', '" . $date . "')")  
 			or die("Failed to submit sess2");
-		$userSess3Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess3']) . ")") 
+		$userSess3Query = $mysqli->query("INSERT INTO user_sessions (userID, sessionID, ip, time) VALUES (" . mysql_real_escape_string($_SESSION['id']) . ", " . mysql_real_escape_string($_SESSION['sess3']) . ", '" . $ip . "', '" . $date . "')") 
 			or die("Failed to submit sess3");
 		
 		// Increment current registrants count by 1
